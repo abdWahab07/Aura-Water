@@ -11,7 +11,7 @@ import { SOCIALS } from "@/components/SocialIcons";
 
 const PRODUCT_LINKS = [
   { label: "AURA X", href: "/aura-x" },
-  { label: "Custom AURA X", href: "/custom-aura-x" },
+  { label: "Custom Aura", href: "/custom-aura-x" },
 ];
 
 type MenuSection = {
@@ -26,7 +26,7 @@ const MENU_SECTIONS: MenuSection[] = [
     href: "#products",
     links: [
       { label: "AURA X", href: "/aura-x" },
-      { label: "Custom AURA X", href: "/custom-aura-x" },
+      { label: "Custom Aura", href: "/custom-aura-x" },
     ],
   },
 ];
@@ -36,11 +36,11 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.25 }}
-      className="pointer-events-auto fixed inset-0 z-[60] flex flex-col bg-[#1b4ef5] text-white"
+      initial={{ x: "100%" }}
+      animate={{ x: 0 }}
+      exit={{ x: "100%" }}
+      transition={{ type: "tween", ease: [0.22, 1, 0.36, 1], duration: 0.4 }}
+      className="pointer-events-auto fixed inset-y-0 right-0 z-[60] flex w-full max-w-md flex-col bg-[#1b4ef5] text-white shadow-2xl"
     >
       {/* Top bar */}
       <div className="flex items-center justify-between px-5 pt-4 sm:px-8">

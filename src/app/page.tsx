@@ -3,6 +3,7 @@ import { Hero } from "@/components/Hero";
 import { OccasionsSection } from "@/components/OccasionsSection";
 import { StillSection } from "@/components/StillSection";
 import { CustomersSection } from "@/components/CustomersSection";
+import { StayConnectedSection } from "@/components/StayConnectedSection";
 import { WaveDivider } from "@/components/WaveDivider";
 import { Footer } from "@/components/Footer";
 
@@ -42,6 +43,8 @@ export default function Home() {
           },
         ]}
       />
+      <WaveDivider />
+      <StayConnectedSection />
       <Footer />
     </main>
   );
