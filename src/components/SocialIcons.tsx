@@ -14,14 +14,6 @@ export function FacebookIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function XIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...iconProps} {...props}>
-      <path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.66l7.73-8.84L1.24 2.25h6.83l4.71 6.23 5.46-6.23Zm-1.16 17.52h1.83L7.01 4.13H5.05l12.03 15.64Z" />
-    </svg>
-  );
-}
-
 export function InstagramIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg {...iconProps} {...props}>
@@ -30,19 +22,17 @@ export function InstagramIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function LinkedinIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...iconProps} {...props}>
-      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14Zm1.78 13.02H3.55V9h3.57v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0Z" />
-    </svg>
-  );
-}
-
 export type SocialIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
 export const SOCIALS: { label: string; href: string; Icon: SocialIcon }[] = [
-  { label: "Facebook", href: "#", Icon: FacebookIcon },
-  { label: "X", href: "#", Icon: XIcon },
-  { label: "Instagram", href: "#", Icon: InstagramIcon },
-  { label: "LinkedIn", href: "#", Icon: LinkedinIcon },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/share/14gHEws2WSR/?mibextid=wwXIfr",
+    Icon: FacebookIcon,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/aurawater_pk?igsh=MW1ydTgybmtuYzdqdw%3D%3D&utm_source=qr",
+    Icon: InstagramIcon,
+  },
 ];
