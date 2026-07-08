@@ -18,8 +18,8 @@ export default function Home() {
       <StillSection />
       <WaveDivider />
       <StillSection
-        heading="CUSTOM AURA X"
-        description="Bring your brand to life with a bottle that is unmistakably yours. Work with us to create a custom AURA X design from label artwork and colour palettes to finishes and packaging tailored to your business, event, or product line. Whether you are launching a new brand, refreshing an existing one, or looking for a premium giveaway, we help you shape every detail so your water looks as distinctive as the story behind it."
+        heading="CUSTOM AURA"
+        description="Bring your brand to life with a bottle that is unmistakably yours. Work with us to create a custom AURA design from label artwork and colour palettes to finishes and packaging tailored to your business, event, or product line. Whether you are launching a new brand, refreshing an existing one, or looking for a premium giveaway, we help you shape every detail so your water looks as distinctive as the story behind it."
         bottles={[
           {
             src: "/assets/custom bottle/extraction.png",
