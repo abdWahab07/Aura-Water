@@ -4,28 +4,40 @@ import { motion } from "framer-motion";
 import { MountainBackground } from "./MountainBackground";
 import { CurvedBottom } from "./CurvedBottom";
 import { BottleSection } from "./BottleSection";
-import { fadeInUp } from "@/lib/motion";
+import { AnimatedHeading } from "./Reveal";
 
 export function Hero() {
   return (
     <section className="relative min-h-[100svh] w-full overflow-hidden">
-      <MountainBackground />
+      <motion.div
+        initial={{ opacity: 0, scale: 1.08 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute inset-0"
+      >
+        <MountainBackground />
+      </motion.div>
 
       {/* Hero copy */}
       <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1400px] flex-col items-center px-5 pt-[18vh] text-center sm:px-8 sm:pt-[16vh] md:pt-[17vh]">
-        <motion.h1
-          variants={fadeInUp}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.15 }}
+        <AnimatedHeading
+          as="h1"
+          text="Refined by Nature"
+          immediate
+          delay={0.2}
           className="font-display text-[9vw] font-bold uppercase leading-[0.95] tracking-tight text-cream drop-shadow-[0_2px_20px_rgba(0,0,0,0.25)] sm:whitespace-nowrap md:text-[7.5vw] xl:text-[140px]"
-        >
-          Refined by Nature
-        </motion.h1>
+        />
       </div>
 
       {/* White foreground wave */}
-      <CurvedBottom className="absolute inset-x-0 bottom-0 z-10 h-[24vh] min-h-[150px] w-full" />
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute inset-x-0 bottom-0 z-10"
+      >
+        <CurvedBottom className="h-[24vh] min-h-[150px] w-full" />
+      </motion.div>
 
       {/* Bottles standing on the wave */}
       <BottleSection />
@@ -35,6 +47,9 @@ export function Hero() {
         href="https://wa.me/923066600133"
         target="_blank"
         rel="noopener noreferrer"
+        initial={{ opacity: 0, scale: 0.6 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Chat on WhatsApp"

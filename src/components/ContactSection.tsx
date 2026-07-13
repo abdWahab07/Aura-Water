@@ -3,8 +3,9 @@
 import { motion } from "framer-motion";
 import { Mail, MapPin, Phone, Clock, Send, Check } from "lucide-react";
 import { useState, type FormEvent } from "react";
-import { fadeInUp, fadeIn } from "@/lib/motion";
+import { fadeInUp, fadeIn, staggerContainer, scaleIn } from "@/lib/motion";
 import { SOCIALS } from "@/components/SocialIcons";
+import { AnimatedHeading } from "./Reveal";
 
 type Detail = {
   Icon: typeof Mail;
@@ -17,7 +18,7 @@ const DETAILS: Detail[] = [
   {
     Icon: MapPin,
     label: "Visit Us",
-    lines: ["Aura Water", "Muhammad Abdul Moiz"],
+    lines: ["Aura Water"],
   },
   {
     Icon: Phone,
@@ -47,25 +48,38 @@ const SUBJECTS = [
 
 function ContactDetails() {
   return (
-    <motion.div
-      variants={fadeInUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      className="flex flex-col"
-    >
-      <span className="font-display text-sm font-semibold uppercase tracking-[0.22em] text-[#1b4ef5]">
+    <div className="flex flex-col">
+      <motion.span
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        className="font-display text-sm font-semibold uppercase tracking-[0.22em] text-[#1b4ef5]"
+      >
         Contact Details
-      </span>
-      <h2 className="mt-3 font-display text-4xl font-bold uppercase tracking-tight text-slate-900 sm:text-5xl">
-        Let&apos;s Talk
-      </h2>
-      <p className="mt-4 max-w-md text-[15px] leading-relaxed text-slate-600">
+      </motion.span>
+      <AnimatedHeading
+        text="Let's Talk"
+        className="mt-3 font-display text-4xl font-bold uppercase tracking-tight text-slate-900 sm:text-5xl"
+      />
+      <motion.p
+        variants={fadeIn}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        className="mt-4 max-w-md text-[15px] leading-relaxed text-slate-600"
+      >
         Whether it&apos;s a quick question or a big idea, our team is always
         happy to help. Pick whichever way suits you best.
-      </p>
+      </motion.p>
 
-      <div className="mt-10 grid gap-5 sm:grid-cols-2">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        className="mt-10 grid gap-5 sm:grid-cols-2"
+      >
         {DETAILS.map(({ Icon, label, lines, href }) => {
           const content = (
             <>
@@ -86,7 +100,7 @@ function ContactDetails() {
           );
 
           return (
-            <div key={label}>
+            <motion.div key={label} variants={scaleIn}>
               {href ? (
                 <a
                   href={href}
@@ -99,12 +113,18 @@ function ContactDetails() {
                   {content}
                 </div>
               )}
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
 
-      <div className="mt-10">
+      <motion.div
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        className="mt-10"
+      >
         <span className="font-display text-sm font-bold uppercase tracking-[0.06em] text-slate-900">
           Follow Us
         </span>
@@ -113,6 +133,8 @@ function ContactDetails() {
             <motion.a
               key={label}
               href={href}
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label={label}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -122,8 +144,8 @@ function ContactDetails() {
             </motion.a>
           ))}
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }
 
@@ -174,28 +196,42 @@ function ContactForm() {
 
   return (
     <motion.div
-      variants={fadeIn}
+      variants={scaleIn}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
       className="relative overflow-hidden rounded-3xl bg-[#B4E1EB] p-6 shadow-[0_30px_70px_-40px_rgba(0,0,0,0.45)] sm:p-10"
     >
-      <span className="font-display text-sm font-semibold uppercase tracking-[0.22em] text-[#1b4ef5]">
+      <motion.span
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="font-display text-sm font-semibold uppercase tracking-[0.22em] text-[#1b4ef5]"
+      >
         Send A Message
-      </span>
-      <h3 className="mt-3 font-display text-3xl font-bold uppercase tracking-tight text-slate-900 sm:text-4xl">
-        Drop Us A Line
-      </h3>
+      </motion.span>
+      <AnimatedHeading
+        as="h3"
+        text="Drop Us A Line"
+        className="mt-3 font-display text-3xl font-bold uppercase tracking-tight text-slate-900 sm:text-4xl"
+      />
 
       {submitted ? (
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.92, y: 16 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           className="mt-8 flex flex-col items-center rounded-2xl bg-white/80 px-6 py-12 text-center"
         >
-          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[#1b4ef5] text-white">
+          <motion.span
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.1 }}
+            className="flex h-14 w-14 items-center justify-center rounded-full bg-[#1b4ef5] text-white"
+          >
             <Check className="h-7 w-7" strokeWidth={2.5} />
-          </span>
+          </motion.span>
           <h4 className="mt-5 font-display text-2xl font-bold uppercase tracking-tight text-slate-900">
             Message Sent
           </h4>
@@ -211,13 +247,16 @@ function ContactForm() {
           </button>
         </motion.div>
       ) : (
-        <form
+        <motion.form
           action="https://formsubmit.co/aurawater.pk@gmail.com"
           method="POST"
           onSubmit={handleSubmit}
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
           className="mt-8 space-y-5"
         >
-          {/* Honeypot — hidden from users, catches bots */}
           <input
             type="text"
             name="_honey"
@@ -228,12 +267,15 @@ function ContactForm() {
           />
 
           {error && (
-            <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <motion.p
+              variants={fadeInUp}
+              className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+            >
               {error}
-            </p>
+            </motion.p>
           )}
 
-          <div className="grid gap-5 sm:grid-cols-2">
+          <motion.div variants={fadeInUp} className="grid gap-5 sm:grid-cols-2">
             <div>
               <label
                 htmlFor="contact-name"
@@ -266,15 +308,18 @@ function ContactForm() {
                 className={inputClass}
               />
             </div>
-          </div>
+          </motion.div>
 
-          <div className="grid gap-5 sm:grid-cols-2">
+          <motion.div variants={fadeInUp} className="grid gap-5 sm:grid-cols-2">
             <div>
               <label
                 htmlFor="contact-phone"
                 className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.08em] text-slate-700"
               >
-                Phone <span className="font-normal normal-case text-slate-400">(optional)</span>
+                Phone{" "}
+                <span className="font-normal normal-case text-slate-400">
+                  (optional)
+                </span>
               </label>
               <input
                 id="contact-phone"
@@ -304,9 +349,9 @@ function ContactForm() {
                 ))}
               </select>
             </div>
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div variants={fadeInUp}>
             <label
               htmlFor="contact-message"
               className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.08em] text-slate-700"
@@ -321,10 +366,11 @@ function ContactForm() {
               placeholder="Tell us how we can help..."
               className={`${inputClass} resize-none`}
             />
-          </div>
+          </motion.div>
 
           <motion.button
             type="submit"
+            variants={fadeInUp}
             disabled={submitting}
             whileHover={submitting ? undefined : { scale: 1.03 }}
             whileTap={submitting ? undefined : { scale: 0.97 }}
@@ -333,7 +379,7 @@ function ContactForm() {
             {submitting ? "Sending..." : "Send Message"}
             <Send className="h-4 w-4" strokeWidth={2.2} />
           </motion.button>
-        </form>
+        </motion.form>
       )}
     </motion.div>
   );

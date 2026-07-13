@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { fadeInUp, fadeIn } from "@/lib/motion";
+import { fadeIn, scaleIn } from "@/lib/motion";
+import { AnimatedHeading, Reveal } from "./Reveal";
 
 type Brand = {
   src: string;
@@ -21,31 +22,29 @@ export function CustomersSection() {
   return (
     <section className="relative overflow-hidden bg-white py-16 md:py-24">
       <div className="mx-auto max-w-3xl px-5 sm:px-8">
-        <motion.h2
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+        <AnimatedHeading
+          text="AURA Customers"
           className="text-center font-display text-4xl font-bold uppercase tracking-tight text-[#1b4ef5] sm:text-5xl md:text-6xl"
-        >
-          AURA Customers
-        </motion.h2>
+        />
 
-        <motion.p
+        <Reveal
           variants={fadeIn}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+          delay={0.12}
           className="mx-auto mt-5 max-w-xl text-center text-[15px] leading-relaxed text-slate-500 sm:text-base"
         >
-          Trusted by brands who put their name on our water. Here are just a few
-          of the businesses we&apos;ve created custom AURA X bottles for.
-        </motion.p>
+          <p>
+            Trusted by brands who put their name on our water. Here are just a few
+            of the businesses we&apos;ve created custom AURA bottles for.
+          </p>
+        </Reveal>
       </div>
 
       {/* Infinite logo marquee */}
-      <div className="relative mx-auto mt-14 max-w-3xl overflow-hidden">
-        {/* Soft fade on the edges */}
+      <Reveal
+        variants={scaleIn}
+        delay={0.15}
+        className="relative mx-auto mt-14 max-w-3xl overflow-hidden"
+      >
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent sm:w-28" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent sm:w-28" />
 
@@ -74,7 +73,7 @@ export function CustomersSection() {
             </div>
           ))}
         </motion.div>
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -3,9 +3,10 @@
 import Image from "next/image";
 import { motion, useScroll } from "framer-motion";
 import { useRef } from "react";
-import { fadeInUp, fadeIn } from "@/lib/motion";
+import { fadeIn } from "@/lib/motion";
 import { AURA_X_BOTTLES, type ProductBottle } from "@/lib/productBottles";
 import { DriftingBottle, GROUP_DRIFTS, SINGLE_DRIFT } from "./DriftingBottle";
+import { AnimatedHeading, Reveal } from "./Reveal";
 
 type ProductSizesSectionProps = {
   title?: string;
@@ -37,25 +38,18 @@ export function ProductSizesSection({
       className="relative overflow-hidden bg-[#f2edf7]"
     >
       <div className="mx-auto max-w-[1400px] px-5 pb-16 pt-16 sm:px-8 md:pb-24 md:pt-20">
-        <motion.h2
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+        <AnimatedHeading
+          text={title}
           className="text-center font-display text-4xl font-bold uppercase tracking-tight text-[#1b4ef5] sm:text-5xl md:text-6xl"
-        >
-          {title}
-        </motion.h2>
+        />
 
-        <motion.p
+        <Reveal
           variants={fadeIn}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+          delay={0.12}
           className="mx-auto mt-5 max-w-2xl text-center text-[15px] leading-relaxed text-slate-700 sm:text-base"
         >
-          {description}
-        </motion.p>
+          <p>{description}</p>
+        </Reveal>
 
         <div className="mt-12 flex flex-wrap items-end justify-center gap-6 sm:gap-8 md:mt-16 md:gap-10">
           {bottles.map((bottle, i) => (

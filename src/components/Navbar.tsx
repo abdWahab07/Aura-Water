@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Waves, ChevronDown, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { fadeDown } from "@/lib/motion";
+import { usePageTransition } from "@/components/PageTransition";
 import { CurvedTop } from "./CurvedTop";
 import { SOCIALS } from "@/components/SocialIcons";
 
@@ -33,6 +34,12 @@ const MENU_SECTIONS: MenuSection[] = [
 
 function MobileMenu({ onClose }: { onClose: () => void }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { startNavigation } = usePageTransition();
+
+  function handleNav(href: string) {
+    startNavigation(href);
+    onClose();
+  }
 
   return (
     <motion.div
@@ -44,7 +51,12 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
     >
       {/* Top bar */}
       <div className="flex items-center justify-between px-5 pt-4 sm:px-8">
-        <Link href="/" aria-label="Aura Water home" onClick={onClose} className="-mt-2 flex items-center">
+        <Link
+          href="/"
+          aria-label="Aura Water home"
+          onClick={() => handleNav("/")}
+          className="-mt-2 flex items-center"
+        >
           <Image
             src="/assets/logo.png"
             alt="Aura Water"
@@ -70,7 +82,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       <nav className="mt-6 flex-1 overflow-y-auto px-5 sm:px-8">
         <Link
           href="/"
-          onClick={onClose}
+          onClick={() => handleNav("/")}
           className="block border-b border-white/15 py-5 font-display text-2xl font-bold uppercase tracking-tight text-white transition-colors hover:text-white/90"
         >
           Home
@@ -111,7 +123,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
                       <li key={link.label}>
                         <Link
                           href={link.href}
-                          onClick={onClose}
+                          onClick={() => handleNav(link.href)}
                           className="block py-2.5 pl-1 text-base text-white/80 transition-colors hover:text-white"
                         >
                           {link.label}
@@ -128,7 +140,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
 
         <Link
           href="/contact"
-          onClick={onClose}
+          onClick={() => handleNav("/contact")}
           className="block border-b border-white/15 py-5 font-display text-2xl font-bold uppercase tracking-tight text-white transition-colors hover:text-white/90"
         >
           Contact Us
@@ -141,6 +153,8 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
           <a
             key={label}
             href={href}
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label={label}
             className="flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-white transition-colors hover:bg-white hover:text-[#1b4ef5]"
           >
@@ -162,6 +176,7 @@ export function Navbar({
   const [isScrolled, setIsScrolled] = useState(false);
   const productsRef = useRef<HTMLDivElement>(null);
   const isWhite = variant === "white";
+  const { startNavigation } = usePageTransition();
 
   // Prevent the page behind the menu from scrolling while it's open.
   useEffect(() => {
@@ -227,6 +242,7 @@ export function Navbar({
         <Link
           href="/"
           aria-label="Aura Water home"
+          onClick={() => startNavigation("/")}
           className="-mt-3 flex items-center md:-mt-6"
         >
           <Image
@@ -241,7 +257,11 @@ export function Navbar({
 
         {/* Desktop nav links */}
         <nav className="hidden items-center gap-7 pt-2 lg:flex xl:gap-9">
-          <Link href="/" className={linkClass}>
+          <Link
+            href="/"
+            onClick={() => startNavigation("/")}
+            className={linkClass}
+          >
             Home
           </Link>
 
@@ -279,7 +299,10 @@ export function Navbar({
                       key={link.label}
                       href={link.href}
                       role="menuitem"
-                      onClick={() => setProductsOpen(false)}
+                      onClick={() => {
+                        startNavigation(link.href);
+                        setProductsOpen(false);
+                      }}
                       className="block rounded-xl px-4 py-2.5 text-[13px] font-bold uppercase tracking-[0.06em] text-[#1b4ef5] transition-colors hover:bg-[#1b4ef5]/10"
                     >
                       {link.label}
@@ -290,7 +313,11 @@ export function Navbar({
             </AnimatePresence>
           </div>
 
-          <Link href="/contact" className={linkClass}>
+          <Link
+            href="/contact"
+            onClick={() => startNavigation("/contact")}
+            className={linkClass}
+          >
             Contact Us
           </Link>
         </nav>

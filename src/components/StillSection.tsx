@@ -5,6 +5,7 @@ import { motion, useScroll } from "framer-motion";
 import { useRef } from "react";
 import { fadeInUp, fadeIn } from "@/lib/motion";
 import { DriftingBottle, SINGLE_DRIFT, GROUP_DRIFTS } from "./DriftingBottle";
+import { AnimatedHeading } from "./Reveal";
 
 type Bottle = {
   src: string;
@@ -74,7 +75,11 @@ export function StillSection({
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
         <div className="relative">
           {/* Angled cream panel */}
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="relative bg-[#B4E1EB] shadow-[0_20px_60px_-30px_rgba(0,0,0,0.25)]"
             style={{
               clipPath: reverse
@@ -85,15 +90,10 @@ export function StillSection({
             <div className="grid items-center gap-8 px-8 py-16 sm:px-14 md:grid-cols-2 md:py-24 lg:px-20">
               {/* Copy */}
               <div className={`max-w-md ${reverse ? "md:order-2" : ""}`}>
-                <motion.h2
-                  variants={fadeInUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-80px" }}
+                <AnimatedHeading
+                  text={heading}
                   className="font-display text-5xl font-bold uppercase tracking-tight text-[#1b4ef5] sm:text-6xl"
-                >
-                  {heading}
-                </motion.h2>
+                />
 
                 <motion.p
                   variants={fadeIn}
@@ -106,7 +106,7 @@ export function StillSection({
                 </motion.p>
 
                 <motion.a
-                  href="#"
+                  href={heading.toLowerCase().includes("custom") ? "/custom-aura-x" : "/aura-x"}
                   variants={fadeInUp}
                   initial="hidden"
                   whileInView="visible"
@@ -126,7 +126,7 @@ export function StillSection({
                 style={{ height: bottleHeight }}
               />
             </div>
-          </div>
+          </motion.div>
 
           {/* Bottle floats above the panel so it can rise into the previous
               section and glide down as you scroll. */}

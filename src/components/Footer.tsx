@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { fadeInUp } from "@/lib/motion";
+import { fadeInUp, staggerContainer } from "@/lib/motion";
+import { usePageTransition } from "@/components/PageTransition";
 import { SOCIALS } from "@/components/SocialIcons";
 
 type FooterLink = {
@@ -25,8 +27,8 @@ const COLUMNS: FooterColumn[] = [
   {
     heading: "Products",
     links: [
-      { label: "Aura Water", href: "#" },
-      { label: "Custom Aura", href: "#" },
+      { label: "Aura Water", href: "/aura-x" },
+      { label: "Custom Aura", href: "/custom-aura-x" },
     ],
   },
   {
@@ -36,6 +38,8 @@ const COLUMNS: FooterColumn[] = [
 ];
 
 export function Footer() {
+  const { startNavigation } = usePageTransition();
+
   return (
     <footer className="relative bg-[#1b4ef5] text-white">
       {/* Curved white wave blending the page above into the footer */}
@@ -74,50 +78,63 @@ export function Footer() {
           </motion.div>
 
           {/* Link columns */}
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            className="grid grid-cols-2 gap-8 sm:grid-cols-3"
+          >
             {COLUMNS.map((col) => (
-              <motion.div
-                key={col.heading}
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-80px" }}
-              >
+              <motion.div key={col.heading} variants={fadeInUp}>
                 <h3 className="font-display text-sm font-bold uppercase tracking-[0.1em] text-white">
                   {col.heading}
                 </h3>
                 <ul className="mt-4 space-y-3">
                   {col.links.map((link) => (
                     <li key={link.label}>
-                      <a
-                        href={link.href}
-                        {...(link.external
-                          ? { target: "_blank", rel: "noopener noreferrer" }
-                          : {})}
-                        className="inline-flex items-center gap-1 text-sm text-white/75 transition-colors hover:text-white"
-                      >
-                        {link.label}
-                        {link.external && (
+                      {link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-sm text-white/75 transition-colors hover:text-white"
+                        >
+                          {link.label}
                           <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={2.2} />
-                        )}
-                      </a>
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          onClick={() => startNavigation(link.href)}
+                          className="inline-flex items-center gap-1 text-sm text-white/75 transition-colors hover:text-white"
+                        >
+                          {link.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Bottom bar */}
         <div className="mt-14 flex flex-col gap-6 border-t border-white/15 pt-6 md:flex-row md:items-center md:justify-between">
           {/* Socials */}
           <div className="flex items-center gap-3">
-            {SOCIALS.map(({ label, href, Icon }) => (
+            {SOCIALS.map(({ label, href, Icon }, i) => (
               <motion.a
                 key={label}
                 href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={label}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.45 }}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-white transition-colors hover:bg-white hover:text-[#1b4ef5]"
